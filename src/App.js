@@ -239,7 +239,7 @@ function App() {
                     <div
                       className="progress-bar"
                       style={{
-                        width: `${(step / 8) * 100}%`,
+                        width: `${(step / 6) * 100}%`,
                         background:
                           'linear-gradient(to right,#2563eb,#1d4ed8)'
                       }}
@@ -248,7 +248,7 @@ function App() {
                   </div>
 
                   <div className="text-muted fw-semibold mb-3">
-                    Step {step} of 8
+                    Step {step} of 6
                   </div>
                 </>
               )}
@@ -380,7 +380,6 @@ function App() {
                     'Under $20K',
                     '$20K - $35K',
                     '$35K - $50K',
-                    'Over $50K',
                   ], 'income')}
 
                   <div
@@ -419,95 +418,9 @@ function App() {
                 </>
               )}
 
-              {/* STEP 4 */}
-
-              {step === 4 && (
-                <>
-
-                  <h2 style={styles.title}>
-                    Tax Household Size
-                  </h2>
-
-                  <p style={styles.subtitle}>
-                    Include yourself and dependents.
-                  </p>
-
-                  <div className="d-flex justify-content-center align-items-center gap-4 mt-4">
-
-                    <button
-                      className="btn btn-primary rounded-circle"
-                      style={{
-                        width: '60px',
-                        height: '60px',
-                        fontSize: '26px',
-                      }}
-                      onClick={() => {
-                        if (formData.householdSize > 1) {
-                          updateField(
-                            'householdSize',
-                            formData.householdSize - 1
-                          );
-                        }
-                      }}
-                    >
-                      -
-                    </button>
-
-                    <h1>{formData.householdSize}</h1>
-
-                    <button
-                      className="btn btn-primary rounded-circle"
-                      style={{
-                        width: '60px',
-                        height: '60px',
-                        fontSize: '26px',
-                      }}
-                      onClick={() => {
-                        updateField(
-                          'householdSize',
-                          formData.householdSize + 1
-                        );
-                      }}
-                    >
-                      +
-                    </button>
-
-                  </div>
-
-                  <div
-                    className="
-    d-flex
-    justify-content-between
-    mt-4
-    mobile-fixed-buttons
-  "
-                  >
-
-                    <button
-                      style={styles.backBtn}
-                      onClick={prevStep}
-                    >
-                      <FaArrowLeft /> Back
-                    </button>
-
-                    <button
-                      style={{
-                        ...styles.mainBtn,
-                        width: 'auto',
-                      }}
-                      onClick={nextStep}
-                    >
-                      Continue
-                    </button>
-
-                  </div>
-
-                </>
-              )}
-
               {/* STEP 5 */}
 
-              {step === 5 && (
+              {step === 4 && (
                 <>
 
                   <h2 style={styles.title}>
@@ -559,66 +472,9 @@ function App() {
                 </>
               )}
 
-              {/* STEP 6 */}
-
-              {step === 6 && (
-                <>
-
-                  <h2 style={styles.title}>
-                    Recent Life Change?
-                  </h2>
-
-                  <p style={styles.subtitle}>
-                    Qualifying events may open special enrollment.
-                  </p>
-
-                  {optionCards([
-                    'Lost Job',
-                    'Moved',
-                    'Got Married',
-                    'Had a Baby',
-                    'None Of The Above',
-                  ], 'lifeChange')}
-
-                  <div
-                    className="
-    d-flex
-    justify-content-between
-    mt-4
-    mobile-fixed-buttons
-  "
-                  >
-
-                    <button
-                      style={styles.backBtn}
-                      onClick={prevStep}
-                    >
-                      <FaArrowLeft /> Back
-                    </button>
-
-                    <button
-                      style={{
-                        ...styles.mainBtn,
-                        width: 'auto',
-                        opacity:
-                          formData.lifeChange
-                            ? 1
-                            : 0.5,
-                      }}
-                      disabled={!formData.lifeChange}
-                      onClick={nextStep}
-                    >
-                      Continue
-                    </button>
-
-                  </div>
-
-                </>
-              )}
-
               {/* STEP 7 */}
 
-              {step === 7 && (
+              {step === 5 && (
                 <>
 
                   <h2 style={styles.title}>
@@ -725,7 +581,7 @@ function App() {
 
               {/* STEP 8 */}
 
-              {step === 8 && (
+              {step === 6 && (
                 <>
 
                   <h2 style={styles.title}>
@@ -855,7 +711,7 @@ function App() {
 
               )}
 
-              {step <= 8 && (
+              {step <= 6 && (
 
                 <div style={styles.trustBox}>
 
