@@ -609,14 +609,39 @@ function App() {
                     onChange={(e) => updateField('email', e.target.value)}
                   />
 
-                  <input
-                    type="text"
-                    placeholder="Phone Number"
-                    className="form-control mt-3"
-                    style={styles.input}
-                    value={formData.phone}
-                    onChange={(e) => updateField('phone', e.target.value)}
-                  />
+                  <div className="input-group mt-3">
+
+                    <span
+                      className="input-group-text"
+                      style={{
+                        borderRadius: '14px 0 0 14px',
+                        background: '#f8fafc',
+                        fontWeight: '600',
+                        padding: '0 18px',
+                      }}
+                    >
+                      +1
+                    </span>
+
+                    <input
+                      type="text"
+                      placeholder="Phone Number"
+                      className="form-control"
+                      style={{
+                        ...styles.input,
+                        borderRadius: '0 14px 14px 0',
+                      }}
+                      value={formData.phone}
+                      onChange={(e) =>
+                        updateField(
+                          'phone',
+                          e.target.value.replace(/\D/g, '')
+                        )
+                      }
+                      maxLength={10}
+                    />
+
+                  </div>
 
                   <div className="d-flex justify-content-between mt-4">
 
