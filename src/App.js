@@ -227,7 +227,10 @@ function App() {
 
             </div>
 
-            <div style={styles.formCard}>
+            <div
+              style={styles.formCard}
+              className="form-card-mobile-space"
+            >
 
               {step <= 8 && (
                 <>
@@ -324,7 +327,14 @@ function App() {
                     'Just My Children',
                   ], 'coverageType')}
 
-                  <div className="d-flex justify-content-between mt-4">
+                  <div
+                    className="
+    d-flex
+    justify-content-between
+    mt-4
+    mobile-fixed-buttons
+  "
+                  >
 
                     <button
                       style={styles.backBtn}
@@ -373,7 +383,14 @@ function App() {
                     'Over $50K',
                   ], 'income')}
 
-                  <div className="d-flex justify-content-between mt-4">
+                  <div
+                    className="
+    d-flex
+    justify-content-between
+    mt-4
+    mobile-fixed-buttons
+  "
+                  >
 
                     <button
                       style={styles.backBtn}
@@ -457,7 +474,14 @@ function App() {
 
                   </div>
 
-                  <div className="d-flex justify-content-between mt-4">
+                  <div
+                    className="
+    d-flex
+    justify-content-between
+    mt-4
+    mobile-fixed-buttons
+  "
+                  >
 
                     <button
                       style={styles.backBtn}
@@ -499,7 +523,14 @@ function App() {
                     "No, I Don't",
                   ], 'employerInsurance')}
 
-                  <div className="d-flex justify-content-between mt-4">
+                  <div
+                    className="
+    d-flex
+    justify-content-between
+    mt-4
+    mobile-fixed-buttons
+  "
+                  >
 
                     <button
                       style={styles.backBtn}
@@ -549,7 +580,14 @@ function App() {
                     'None Of The Above',
                   ], 'lifeChange')}
 
-                  <div className="d-flex justify-content-between mt-4">
+                  <div
+                    className="
+    d-flex
+    justify-content-between
+    mt-4
+    mobile-fixed-buttons
+  "
+                  >
 
                     <button
                       style={styles.backBtn}
@@ -643,7 +681,14 @@ function App() {
 
                   </div>
 
-                  <div className="d-flex justify-content-between mt-4">
+                  <div
+                    className="
+    d-flex
+    justify-content-between
+    mt-4
+    mobile-fixed-buttons
+  "
+                  >
 
                     <button
                       style={styles.backBtn}
@@ -719,7 +764,14 @@ function App() {
 
                   </div>
 
-                  <div className="d-flex justify-content-between mt-4">
+                  <div
+                    className="
+    d-flex
+    justify-content-between
+    mt-4
+    mobile-fixed-buttons
+  "
+                  >
 
                     <button
                       style={styles.backBtn}
@@ -830,6 +882,48 @@ function App() {
         </div>
 
       </div>
+
+      <style>
+        {`
+
+    @media (max-width: 768px) {
+
+      .mobile-fixed-buttons {
+
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    gap: 12px;
+
+        background: #ffffff;
+
+        padding: 14px 16px;
+
+        z-index: 999;
+
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+
+        margin-top: 0 !important;
+
+        border-top: 1px solid #e2e8f0;
+      }
+
+      .mobile-fixed-buttons button {
+
+        flex: 1;
+        height: 54px;
+      }
+
+      .form-card-mobile-space {
+
+        padding-bottom: 120px !important;
+      }
+
+    }
+
+  `}
+      </style>
 
     </div>
 
