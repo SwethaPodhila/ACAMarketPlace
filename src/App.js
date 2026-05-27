@@ -24,95 +24,130 @@ function App() {
 
   const styles = {
 
-    mainWrapper: {
+    page: {
       minHeight: '100vh',
       background:
-        'linear-gradient(135deg,#dbeafe 0%,#eff6ff 35%,#ffffff 100%)',
-      padding: '50px 15px',
+        'linear-gradient(180deg,#f8fbff 0%,#eef4ff 100%)',
+      padding: '40px 15px',
       display: 'flex',
       alignItems: 'center',
     },
 
-    formCard: {
+    card: {
       background: '#ffffff',
-      borderRadius: '32px',
-      padding: '45px',
-      boxShadow: '0 25px 60px rgba(37,99,235,0.12)',
+      borderRadius: '28px',
+      padding: '48px',
+      boxShadow: '0 20px 60px rgba(15,23,42,0.08)',
       border: '1px solid #e2e8f0',
-      position: 'relative',
-      overflow: 'hidden',
+    },
+
+    badge: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '10px 18px',
+      borderRadius: '999px',
+      background: '#eff6ff',
+      color: '#2563eb',
+      fontWeight: '700',
+      fontSize: '14px',
+      marginBottom: '25px',
     },
 
     title: {
-      fontSize: '40px',
+      fontSize: '44px',
       fontWeight: '800',
+      lineHeight: '1.1',
       color: '#0f172a',
+      marginBottom: '18px',
       textAlign: 'center',
-      lineHeight: '1.2',
     },
 
     subtitle: {
-      color: '#64748b',
-      marginTop: '14px',
-      marginBottom: '35px',
-      lineHeight: '1.8',
       textAlign: 'center',
-      fontSize: '16px',
+      color: '#64748b',
+      fontSize: '17px',
+      lineHeight: '1.8',
+      marginBottom: '38px',
     },
 
-    questionTitle: {
-      marginTop: '35px',
-      color: '#0f172a',
+    question: {
       fontSize: '20px',
       fontWeight: '700',
+      color: '#0f172a',
+      marginBottom: '18px',
+      marginTop: '35px',
     },
 
-    optionCard: {
+    optionWrap: {
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr',
+      gap: '14px',
+    },
+
+    option: {
       border: '2px solid #e2e8f0',
-      borderRadius: '20px',
-      padding: '20px',
+      borderRadius: '18px',
+      padding: '18px',
       textAlign: 'center',
-      cursor: 'pointer',
       fontWeight: '700',
-      transition: 'all 0.3s ease',
+      cursor: 'pointer',
+      transition: '0.25s ease',
       background: '#ffffff',
+      color: '#0f172a',
       fontSize: '16px',
-      minHeight: '74px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
     },
 
-    activeCard: {
-      border: '2px solid #2563eb',
-      background: 'linear-gradient(135deg,#eff6ff,#dbeafe)',
-      color: '#2563eb',
-      transform: 'translateY(-2px)',
-      boxShadow: '0 10px 25px rgba(37,99,235,0.15)',
-    },
-
-    mainBtn: {
+    activeOption: {
       background:
         'linear-gradient(135deg,#2563eb,#1d4ed8)',
-      border: 'none',
       color: '#ffffff',
-      padding: '17px',
-      borderRadius: '16px',
-      fontWeight: '700',
-      width: '100%',
-      marginTop: '25px',
-      fontSize: '17px',
-      boxShadow: '0 12px 30px rgba(37,99,235,0.28)',
-      transition: '0.3s ease',
+      border: '2px solid #2563eb',
+      boxShadow: '0 10px 25px rgba(37,99,235,0.25)',
+      transform: 'translateY(-2px)',
     },
 
     input: {
-      height: '60px',
-      borderRadius: '16px',
-      paddingLeft: '18px',
-      marginTop: '18px',
+      width: '100%',
+      height: '62px',
+      borderRadius: '18px',
       border: '2px solid #e2e8f0',
+      padding: '0 18px',
       fontSize: '16px',
+      marginTop: '18px',
+      outline: 'none',
+      fontWeight: '500',
+    },
+
+    phoneWrap: {
+      display: 'flex',
+      alignItems: 'center',
+      marginTop: '18px',
+    },
+
+    phoneCode: {
+      height: '62px',
+      minWidth: '75px',
+      borderRadius: '18px 0 0 18px',
+      border: '2px solid #e2e8f0',
+      borderRight: 'none',
+      background: '#f8fafc',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontWeight: '700',
+      color: '#0f172a',
+    },
+
+    phoneInput: {
+      flex: 1,
+      height: '62px',
+      borderRadius: '0 18px 18px 0',
+      border: '2px solid #e2e8f0',
+      borderLeft: 'none',
+      padding: '0 18px',
+      fontSize: '16px',
+      outline: 'none',
       fontWeight: '500',
     },
 
@@ -121,31 +156,48 @@ function App() {
       border: '1px solid #e2e8f0',
       borderRadius: '20px',
       padding: '22px',
-      marginTop: '25px',
+      marginTop: '24px',
+    },
+
+    submitBtn: {
+      width: '100%',
+      height: '62px',
+      border: 'none',
+      borderRadius: '18px',
+      background:
+        'linear-gradient(135deg,#2563eb,#1d4ed8)',
+      color: '#ffffff',
+      fontWeight: '700',
+      fontSize: '17px',
+      marginTop: '28px',
+      boxShadow: '0 14px 35px rgba(37,99,235,0.28)',
+      transition: '0.3s ease',
     },
 
     trustBox: {
       display: 'flex',
       justifyContent: 'space-between',
+      gap: '12px',
+      marginTop: '30px',
       flexWrap: 'wrap',
-      marginTop: '35px',
-      gap: '14px',
-      color: '#475569',
-      fontWeight: '600',
+    },
+
+    trustItem: {
       background: '#f8fafc',
-      padding: '18px',
-      borderRadius: '18px',
+      padding: '14px 18px',
+      borderRadius: '14px',
+      color: '#334155',
+      fontWeight: '600',
+      fontSize: '14px',
+      flex: 1,
+      minWidth: '140px',
+      textAlign: 'center',
     },
 
     successBox: {
-      background:
-        'linear-gradient(135deg,#f0fdf4,#dcfce7)',
-      borderRadius: '28px',
-      padding: '40px',
-      marginTop: '10px',
       textAlign: 'center',
-      border: '1px solid #bbf7d0',
-    }
+      padding: '20px 10px',
+    },
 
   };
 
@@ -158,33 +210,33 @@ function App() {
 
   };
 
-  const optionCards = (options, field) => {
+  const renderOptions = (field) => {
 
     return (
-      <div className="row g-3 mt-2">
 
-        {options.map((item, index) => (
+      <div style={styles.optionWrap}>
 
-          <div className="col-md-6" key={index}>
+        {['Yes', 'No'].map((item, index) => (
 
-            <div
-              style={{
-                ...styles.optionCard,
-                ...(formData[field] === item
-                  ? styles.activeCard
-                  : {})
-              }}
+          <div
+            key={index}
 
-              onClick={() => updateField(field, item)}
-            >
-              {item}
-            </div>
+            style={{
+              ...styles.option,
+              ...(formData[field] === item
+                ? styles.activeOption
+                : {})
+            }}
 
+            onClick={() => updateField(field, item)}
+          >
+            {item}
           </div>
 
         ))}
 
       </div>
+
     );
 
   };
@@ -214,8 +266,8 @@ function App() {
         }
       );
 
-      setLoading(false);
       setSubmitted(true);
+      setLoading(false);
 
     } catch (error) {
 
@@ -228,7 +280,7 @@ function App() {
 
   return (
 
-    <div style={styles.mainWrapper}>
+    <div style={styles.page}>
 
       <div className="container">
 
@@ -236,80 +288,57 @@ function App() {
 
           <div className="col-lg-7">
 
-            <div style={styles.formCard}>
+            <div style={styles.card}>
 
               {!submitted ? (
                 <>
 
-                  {/* TOP BADGE */}
+                  <div className="text-center">
 
-                  <div className="text-center mb-4">
-
-                    <span
-                      style={{
-                        background: '#dbeafe',
-                        color: '#2563eb',
-                        padding: '10px 22px',
-                        borderRadius: '999px',
-                        fontWeight: '700',
-                        fontSize: '14px',
-                        display: 'inline-block',
-                      }}
-                    >
-                      ACA Health Coverage Assistance
-                    </span>
+                    <div style={styles.badge}>
+                      ACA Health Coverage
+                    </div>
 
                   </div>
 
-                  {/* TITLE */}
-
-                  <h2 style={styles.title}>
+                  <h1 style={styles.title}>
                     Check Your ACA Eligibility
-                  </h2>
+                  </h1>
 
                   <p style={styles.subtitle}>
-                    Answer a few quick questions to see if you may qualify for affordable health coverage options.
+                    Complete this quick eligibility check to speak with
+                    a licensed health coverage specialist.
                   </p>
 
                   {/* QUESTION 1 */}
 
-                  <h5 style={styles.questionTitle}>
+                  <div style={styles.question}>
                     Are you between the age of 18 to 64?
-                  </h5>
+                  </div>
 
-                  {optionCards(
-                    ['Yes', 'No'],
-                    'ageRange'
-                  )}
+                  {renderOptions('ageRange')}
 
                   {/* QUESTION 2 */}
 
-                  <h5 style={styles.questionTitle}>
+                  <div style={styles.question}>
                     Do you have Medicare, Medicaid or VA benefits?
-                  </h5>
+                  </div>
 
-                  {optionCards(
-                    ['Yes', 'No'],
-                    'benefits'
-                  )}
+                  {renderOptions('benefits')}
 
                   {/* QUESTION 3 */}
 
-                  <h5 style={styles.questionTitle}>
+                  <div style={styles.question}>
                     Is your household income less than $50K?
-                  </h5>
+                  </div>
 
-                  {optionCards(
-                    ['Yes', 'No'],
-                    'income'
-                  )}
+                  {renderOptions('income')}
 
                   {/* NAME */}
 
                   <input
                     type="text"
                     placeholder="Full Name"
-                    className="form-control"
                     style={styles.input}
                     value={formData.fullName}
                     onChange={(e) =>
@@ -319,42 +348,23 @@ function App() {
 
                   {/* PHONE */}
 
-                  <div className="input-group mt-3">
+                  <div style={styles.phoneWrap}>
 
-                    <span
-                      className="input-group-text"
-                      style={{
-                        borderRadius: '16px 0 0 16px',
-                        background: '#f8fafc',
-                        fontWeight: '700',
-                        padding: '0 20px',
-                        border: '2px solid #e2e8f0',
-                        borderRight: 'none',
-                      }}
-                    >
+                    <div style={styles.phoneCode}>
                       +1
-                    </span>
+                    </div>
 
                     <input
                       type="text"
                       placeholder="Phone Number"
-                      className="form-control"
-                      style={{
-                        ...styles.input,
-                        borderRadius: '0 16px 16px 0',
-                        marginTop: '0px',
-                        borderLeft: 'none',
-                      }}
-
+                      style={styles.phoneInput}
                       value={formData.phone}
-
                       onChange={(e) =>
                         updateField(
                           'phone',
                           e.target.value.replace(/\D/g, '')
                         )
                       }
-
                       maxLength={10}
                     />
 
@@ -364,7 +374,13 @@ function App() {
 
                   <div style={styles.consentBox}>
 
-                    <div className="d-flex gap-2 align-items-start">
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '12px',
+                      }}
+                    >
 
                       <input
                         type="checkbox"
@@ -377,32 +393,39 @@ function App() {
                         }}
                       />
 
-                      <span
-                        style={{
-                          fontWeight: '600',
-                          color: '#0f172a',
-                        }}
-                      >
-                        I agree to receive calls and text messages regarding ACA health coverage options.
-                      </span>
+                      <div>
+
+                        <div
+                          style={{
+                            fontWeight: '700',
+                            color: '#0f172a',
+                            marginBottom: '8px',
+                          }}
+                        >
+                          I agree to receive calls and text messages regarding ACA health coverage options.
+                        </div>
+
+                        <div
+                          style={{
+                            color: '#64748b',
+                            lineHeight: '1.7',
+                            fontSize: '14px',
+                          }}
+                        >
+                          By clicking submit, you consent to receive calls and SMS messages from licensed agents using automated technology.
+                        </div>
+
+                      </div>
 
                     </div>
 
-                    <p className="text-muted mt-3 mb-0">
-
-                      By clicking submit, you consent to receive calls and SMS messages
-                      from licensed insurance agents using automated technology.
-                      Message & data rates may apply.
-
-                    </p>
-
                   </div>
 
-                  {/* SUBMIT BUTTON */}
+                  {/* BUTTON */}
 
                   <button
                     style={{
-                      ...styles.mainBtn,
+                      ...styles.submitBtn,
                       opacity:
                         formData.ageRange &&
                           formData.benefits &&
@@ -412,6 +435,15 @@ function App() {
                           formData.consent
                           ? 1
                           : 0.5,
+                      cursor:
+                        formData.ageRange &&
+                          formData.benefits &&
+                          formData.income &&
+                          formData.fullName &&
+                          formData.phone.length >= 10 &&
+                          formData.consent
+                          ? 'pointer'
+                          : 'not-allowed',
                     }}
 
                     disabled={
@@ -432,19 +464,19 @@ function App() {
 
                   </button>
 
-                  {/* TRUST SECTION */}
+                  {/* TRUST */}
 
                   <div style={styles.trustBox}>
 
-                    <div>
-                      <FaShieldAlt /> Secure
+                    <div style={styles.trustItem}>
+                      <FaShieldAlt /> Secure & Encrypted
                     </div>
 
-                    <div>
+                    <div style={styles.trustItem}>
                       <FaLock /> Privacy Protected
                     </div>
 
-                    <div>
+                    <div style={styles.trustItem}>
                       <FaPhoneAlt /> Licensed Agents
                     </div>
 
@@ -457,36 +489,35 @@ function App() {
 
                   <FaCheckCircle
                     style={{
-                      fontSize: '80px',
+                      fontSize: '85px',
                       color: '#16a34a',
                     }}
                   />
 
-                  <h2 className="mt-4 fw-bold">
+                  <h2
+                    style={{
+                      marginTop: '25px',
+                      fontWeight: '800',
+                      color: '#0f172a',
+                    }}
+                  >
                     Thank You!
                   </h2>
 
-                  <p className="mt-4 text-success fw-bold">
-                    Your request has been received successfully.
-                  </p>
-
-                  <p className="mt-3 text-muted">
-
+                  <p
+                    style={{
+                      marginTop: '18px',
+                      color: '#64748b',
+                      fontSize: '17px',
+                      lineHeight: '1.8',
+                    }}
+                  >
+                    Your information has been received successfully.
                     A licensed agent will contact you shortly at
                     <strong>
                       {' '}
                       {formData.phone}
                     </strong>
-
-                  </p>
-
-                  <h4 className="mt-4 fw-bold">
-                    What Happens Next?
-                  </h4>
-
-                  <p className="mt-3 text-muted">
-                    An agent will discuss your eligibility and available ACA health coverage options with you.
-                    There is no obligation to enroll.
                   </p>
 
                 </div>
@@ -503,15 +534,20 @@ function App() {
 
       <style>
         {`
-          @media (max-width:768px){
+          body{
+            margin:0;
+            font-family: Inter, sans-serif;
+          }
+
+          *{
+            box-sizing:border-box;
+          }
+
+          @media(max-width:768px){
 
             .container{
-              padding-left:12px;
-              padding-right:12px;
-            }
-
-            h2{
-              font-size:30px !important;
+              padding-left:8px;
+              padding-right:8px;
             }
 
           }
@@ -521,6 +557,7 @@ function App() {
     </div>
 
   );
+
 }
 
 export default App;
