@@ -245,7 +245,6 @@ function App() {
 
       setLoading(true);
 
-      // GOOGLE SHEET SAVE
 
       await fetch(
         'https://script.google.com/macros/s/AKfycbwgJwMCdJaIVKi7XQ1w7NgYVj3fIrmot2cvc515IMl2AJ4ApAoGt_kSTTtbVJma1U8GzQ/exec',
