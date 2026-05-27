@@ -9,6 +9,8 @@ import {
 
 function App() {
 
+  const [step, setStep] = useState(1);
+
   const [loading, setLoading] = useState(false);
 
   const [submitted, setSubmitted] = useState(false);
@@ -17,8 +19,10 @@ function App() {
     ageRange: '',
     benefits: '',
     income: '',
-    fullName: '',
+    firstName: '',
+    lastName: '',
     phone: '',
+    email: '',
     consent: false,
   });
 
@@ -112,6 +116,12 @@ function App() {
       outline: 'none',
     },
 
+    row: {
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr',
+      gap: '15px',
+    },
+
     phoneWrapper: {
       display: 'flex',
       marginTop: '18px',
@@ -159,6 +169,12 @@ function App() {
       marginTop: '28px',
       fontSize: '17px',
       boxShadow: '0 12px 30px rgba(37,99,235,0.25)',
+      cursor: 'pointer',
+    },
+
+    successBox: {
+      textAlign: 'center',
+      padding: '20px',
     },
 
     trustBox: {
@@ -179,11 +195,6 @@ function App() {
       color: '#475569',
       fontWeight: '600',
       fontSize: '14px',
-    },
-
-    successBox: {
-      textAlign: 'center',
-      padding: '20px',
     }
 
   };
@@ -228,13 +239,32 @@ function App() {
 
   };
 
+  const goNext = () => {
+
+    if (
+      formData.ageRange === 'Yes' &&
+      formData.benefits === 'No' &&
+      formData.income === 'Yes'
+    ) {
+
+      setStep(2);
+
+    } else {
+
+      alert(
+        'Sorry, you do not qualify for ACA Marketplace assistance based on your answers.'
+      );
+
+    }
+
+  };
+
   const submitForm = async () => {
 
     if (
-      !formData.ageRange ||
-      !formData.benefits ||
-      !formData.income ||
-      !formData.fullName ||
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.email.includes('@') ||
       formData.phone.length < 10 ||
       !formData.consent
     ) {
@@ -245,6 +275,7 @@ function App() {
 
       setLoading(true);
 
+      // GOOGLE SHEET
 
       await fetch(
         'https://script.google.com/macros/s/AKfycbwgJwMCdJaIVKi7XQ1w7NgYVj3fIrmot2cvc515IMl2AJ4ApAoGt_kSTTtbVJma1U8GzQ/exec',
@@ -274,11 +305,13 @@ function App() {
       );
 
       setLoading(false);
+
       setSubmitted(true);
 
     } catch (error) {
 
       console.log(error);
+
       setLoading(false);
 
     }
@@ -298,6 +331,7 @@ function App() {
             <div style={styles.formCard}>
 
               {!submitted ? (
+
                 <>
 
                   <div className="text-center">
@@ -316,144 +350,190 @@ function App() {
                     Answer a few quick questions to connect with a licensed health insurance specialist.
                   </p>
 
-                  {/* QUESTION 1 */}
+                  {/* STEP 1 */}
 
-                  <div style={styles.questionTitle}>
-                    Are you between the age of 18 to 64?
-                  </div>
+                  {step === 1 && (
+                    <>
 
-                  {optionCards('ageRange')}
+                      <div style={styles.questionTitle}>
+                        Are you between the age of 18 to 64?
+                      </div>
 
-                  {/* QUESTION 2 */}
+                      {optionCards('ageRange')}
 
-                  <div style={styles.questionTitle}>
-                    Do you have Medicare, Medicaid or VA benefits?
-                  </div>
+                      <div style={styles.questionTitle}>
+                        Do you have Medicare, Medicaid or VA benefits?
+                      </div>
 
-                  {optionCards('benefits')}
+                      {optionCards('benefits')}
 
-                  {/* QUESTION 3 */}
+                      <div style={styles.questionTitle}>
+                        Is your household income less than $50K?
+                      </div>
 
-                  <div style={styles.questionTitle}>
-                    Is your household income less than $50K?
-                  </div>
+                      {optionCards('income')}
 
-                  {optionCards('income')}
+                      <button
+                        style={{
+                          ...styles.submitBtn,
+                          opacity:
+                            formData.ageRange &&
+                            formData.benefits &&
+                            formData.income
+                              ? 1
+                              : 0.5,
+                        }}
 
-                  {/* NAME */}
+                        disabled={
+                          !formData.ageRange ||
+                          !formData.benefits ||
+                          !formData.income
+                        }
 
-                  <input
-                    type="text"
-                    placeholder="Full Name"
-                    style={styles.input}
-                    value={formData.fullName}
-                    onChange={(e) =>
-                      updateField('fullName', e.target.value)
-                    }
-                  />
+                        onClick={goNext}
+                      >
+                        Continue
+                      </button>
 
-                  {/* PHONE */}
+                    </>
+                  )}
 
-                  <div style={styles.phoneWrapper}>
+                  {/* STEP 2 */}
 
-                    <div style={styles.phoneCode}>
-                      +1
-                    </div>
+                  {step === 2 && (
+                    <>
 
-                    <input
-                      type="text"
-                      placeholder="Phone Number"
-                      style={styles.phoneInput}
-                      value={formData.phone}
-                      onChange={(e) =>
-                        updateField(
-                          'phone',
-                          e.target.value.replace(/\D/g, '')
-                        )
-                      }
-                      maxLength={10}
-                    />
+                      <div style={styles.row}>
 
-                  </div>
+                        <input
+                          type="text"
+                          placeholder="First Name"
+                          style={styles.input}
+                          value={formData.firstName}
+                          onChange={(e) =>
+                            updateField('firstName', e.target.value)
+                          }
+                        />
 
-                  {/* CONSENT */}
+                        <input
+                          type="text"
+                          placeholder="Last Name"
+                          style={styles.input}
+                          value={formData.lastName}
+                          onChange={(e) =>
+                            updateField('lastName', e.target.value)
+                          }
+                        />
 
-                  <div style={styles.consentBox}>
-
-                    <div className="d-flex gap-2 align-items-start">
+                      </div>
 
                       <input
-                        type="checkbox"
-                        checked={formData.consent}
+                        type="email"
+                        placeholder="Email Address"
+                        style={styles.input}
+                        value={formData.email}
                         onChange={(e) =>
-                          updateField('consent', e.target.checked)
+                          updateField('email', e.target.value)
                         }
-                        style={{ marginTop: '4px' }}
                       />
 
-                      <div>
+                      <div style={styles.phoneWrapper}>
 
-                        <div
-                          style={{
-                            fontWeight: '700',
-                            color: '#0f172a',
-                            marginBottom: '8px',
-                          }}
-                        >
-                          I agree to receive calls and text messages regarding ACA health coverage options.
+                        <div style={styles.phoneCode}>
+                          +1
                         </div>
 
-                        <div
-                          style={{
-                            color: '#64748b',
-                            lineHeight: '1.6',
-                            fontSize: '14px',
-                          }}
-                        >
-                          By clicking submit, you consent to receive calls and SMS messages from licensed insurance agents using automated technology.
+                        <input
+                          type="text"
+                          placeholder="Phone Number"
+                          style={styles.phoneInput}
+                          value={formData.phone}
+                          onChange={(e) =>
+                            updateField(
+                              'phone',
+                              e.target.value.replace(/\D/g, '')
+                            )
+                          }
+                          maxLength={10}
+                        />
+
+                      </div>
+
+                      <div style={styles.consentBox}>
+
+                        <div className="d-flex gap-2 align-items-start">
+
+                          <input
+                            type="checkbox"
+                            checked={formData.consent}
+                            onChange={(e) =>
+                              updateField('consent', e.target.checked)
+                            }
+                            style={{ marginTop: '4px' }}
+                          />
+
+                          <div>
+
+                            <div
+                              style={{
+                                fontWeight: '700',
+                                color: '#0f172a',
+                                marginBottom: '8px',
+                              }}
+                            >
+                              I agree to receive calls and text messages regarding ACA health coverage options.
+                            </div>
+
+                            <div
+                              style={{
+                                color: '#64748b',
+                                lineHeight: '1.6',
+                                fontSize: '14px',
+                              }}
+                            >
+                              By clicking submit, you consent to receive calls and SMS messages from licensed insurance agents using automated technology.
+                            </div>
+
+                          </div>
+
                         </div>
 
                       </div>
 
-                    </div>
+                      <button
+                        style={{
+                          ...styles.submitBtn,
+                          opacity:
+                            formData.firstName &&
+                            formData.lastName &&
+                            formData.email.includes('@') &&
+                            formData.phone.length >= 10 &&
+                            formData.consent
+                              ? 1
+                              : 0.5,
+                        }}
 
-                  </div>
+                        disabled={
+                          !formData.firstName ||
+                          !formData.lastName ||
+                          !formData.email.includes('@') ||
+                          formData.phone.length < 10 ||
+                          !formData.consent
+                        }
 
-                  {/* BUTTON */}
+                        onClick={submitForm}
+                      >
 
-                  <button
-                    style={{
-                      ...styles.submitBtn,
-                      opacity:
-                        formData.ageRange &&
-                          formData.benefits &&
-                          formData.income &&
-                          formData.fullName &&
-                          formData.phone.length >= 10 &&
-                          formData.consent
-                          ? 1
-                          : 0.5,
-                    }}
+                        {loading
+                          ? 'Submitting...'
+                          : 'Submit'}
 
-                    disabled={
-                      !formData.ageRange ||
-                      !formData.benefits ||
-                      !formData.income ||
-                      !formData.fullName ||
-                      formData.phone.length < 10 ||
-                      !formData.consent
-                    }
+                      </button>
 
-                    onClick={submitForm}
-                  >
+                    </>
+                  )}
 
-                    {loading
-                      ? 'Submitting...'
-                      : 'Check Eligibility'}
-
-                  </button>
-
-                  {/* TRUST SECTION */}
+                  {/* TRUST */}
 
                   <div style={styles.trustBox}>
 
@@ -472,6 +552,7 @@ function App() {
                   </div>
 
                 </>
+
               ) : (
 
                 <div style={styles.successBox}>
@@ -519,29 +600,6 @@ function App() {
         </div>
 
       </div>
-
-      <style>
-        {`
-
-          body{
-            margin:0;
-            font-family: Inter, sans-serif;
-          }
-
-          *{
-            box-sizing:border-box;
-          }
-
-          @media(max-width:768px){
-
-            .col-lg-7{
-              padding:0;
-            }
-
-          }
-
-        `}
-      </style>
 
     </div>
 
