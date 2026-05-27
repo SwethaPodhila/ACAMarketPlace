@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {
-  FaArrowLeft,
   FaCheckCircle,
   FaShieldAlt,
   FaLock,
@@ -10,130 +9,164 @@ import {
 
 function App() {
 
-  const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
-    zipCode: '',
-    coverageType: '',
+    ageRange: '',
+    benefits: '',
     income: '',
-    householdSize: 1,
-    employerInsurance: '',
-    lifeChange: '',
     fullName: '',
-    email: '',
     phone: '',
     consent: false,
   });
+
+  const [submitted, setSubmitted] = useState(false);
 
   const styles = {
 
     mainWrapper: {
       minHeight: '100vh',
-      background: 'linear-gradient(135deg,#eff6ff,#ffffff)',
-      padding: '40px 0',
+      background:
+        'linear-gradient(135deg,#dbeafe 0%,#eff6ff 35%,#ffffff 100%)',
+      padding: '50px 15px',
+      display: 'flex',
+      alignItems: 'center',
     },
 
     formCard: {
-      background: '#fff',
-      borderRadius: '24px',
-      padding: '40px',
-      boxShadow: '0 10px 40px rgba(0,0,0,0.08)',
+      background: '#ffffff',
+      borderRadius: '32px',
+      padding: '45px',
+      boxShadow: '0 25px 60px rgba(37,99,235,0.12)',
+      border: '1px solid #e2e8f0',
+      position: 'relative',
+      overflow: 'hidden',
     },
 
     title: {
-      fontSize: '34px',
-      fontWeight: '700',
+      fontSize: '40px',
+      fontWeight: '800',
       color: '#0f172a',
+      textAlign: 'center',
+      lineHeight: '1.2',
     },
 
     subtitle: {
       color: '#64748b',
-      marginTop: '10px',
-      marginBottom: '25px',
-      lineHeight: '1.7',
+      marginTop: '14px',
+      marginBottom: '35px',
+      lineHeight: '1.8',
+      textAlign: 'center',
+      fontSize: '16px',
+    },
+
+    questionTitle: {
+      marginTop: '35px',
+      color: '#0f172a',
+      fontSize: '20px',
+      fontWeight: '700',
     },
 
     optionCard: {
       border: '2px solid #e2e8f0',
-      borderRadius: '18px',
-      padding: '22px',
+      borderRadius: '20px',
+      padding: '20px',
       textAlign: 'center',
       cursor: 'pointer',
-      fontWeight: '600',
-      transition: '0.3s',
-      background: '#fff',
+      fontWeight: '700',
+      transition: 'all 0.3s ease',
+      background: '#ffffff',
+      fontSize: '16px',
+      minHeight: '74px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
 
     activeCard: {
       border: '2px solid #2563eb',
-      background: '#eff6ff',
+      background: 'linear-gradient(135deg,#eff6ff,#dbeafe)',
       color: '#2563eb',
+      transform: 'translateY(-2px)',
+      boxShadow: '0 10px 25px rgba(37,99,235,0.15)',
     },
 
     mainBtn: {
-      background: 'linear-gradient(to right,#2563eb,#1d4ed8)',
+      background:
+        'linear-gradient(135deg,#2563eb,#1d4ed8)',
       border: 'none',
-      color: '#fff',
-      padding: '14px 30px',
-      borderRadius: '14px',
+      color: '#ffffff',
+      padding: '17px',
+      borderRadius: '16px',
       fontWeight: '700',
       width: '100%',
-    },
-
-    backBtn: {
-      border: '1px solid #dbe2ea',
-      background: '#fff',
-      padding: '14px 30px',
-      borderRadius: '14px',
-      fontWeight: '600',
+      marginTop: '25px',
+      fontSize: '17px',
+      boxShadow: '0 12px 30px rgba(37,99,235,0.28)',
+      transition: '0.3s ease',
     },
 
     input: {
-      height: '58px',
-      borderRadius: '14px',
+      height: '60px',
+      borderRadius: '16px',
       paddingLeft: '18px',
+      marginTop: '18px',
+      border: '2px solid #e2e8f0',
+      fontSize: '16px',
+      fontWeight: '500',
+    },
+
+    consentBox: {
+      background: '#f8fafc',
+      border: '1px solid #e2e8f0',
+      borderRadius: '20px',
+      padding: '22px',
+      marginTop: '25px',
     },
 
     trustBox: {
       display: 'flex',
       justifyContent: 'space-between',
       flexWrap: 'wrap',
-      marginTop: '30px',
-      gap: '15px',
+      marginTop: '35px',
+      gap: '14px',
       color: '#475569',
       fontWeight: '600',
+      background: '#f8fafc',
+      padding: '18px',
+      borderRadius: '18px',
     },
 
     successBox: {
-      background: '#f0fdf4',
-      borderRadius: '20px',
-      padding: '30px',
-      marginTop: '30px',
+      background:
+        'linear-gradient(135deg,#f0fdf4,#dcfce7)',
+      borderRadius: '28px',
+      padding: '40px',
+      marginTop: '10px',
+      textAlign: 'center',
+      border: '1px solid #bbf7d0',
     }
 
   };
 
   const updateField = (field, value) => {
+
     setFormData({
       ...formData,
       [field]: value,
     });
-  };
 
-  const nextStep = () => {
-    setStep(step + 1);
-  };
-
-  const prevStep = () => {
-    setStep(step - 1);
   };
 
   const optionCards = (options, field) => {
+
     return (
       <div className="row g-3 mt-2">
+
         {options.map((item, index) => (
+
           <div className="col-md-6" key={index}>
+
             <div
               style={{
                 ...styles.optionCard,
@@ -141,44 +174,37 @@ function App() {
                   ? styles.activeCard
                   : {})
               }}
+
               onClick={() => updateField(field, item)}
             >
               {item}
             </div>
+
           </div>
+
         ))}
+
       </div>
     );
+
   };
 
   const submitForm = async () => {
 
-    if (!formData.consent) {
+    if (
+      !formData.ageRange ||
+      !formData.benefits ||
+      !formData.income ||
+      !formData.fullName ||
+      formData.phone.length < 10 ||
+      !formData.consent
+    ) {
       return;
     }
 
     try {
 
       setLoading(true);
-
-      // GOOGLE SHEET SAVE
-
-      await fetch(
-        'https://script.google.com/macros/s/AKfycbwgJwMCdJaIVKi7XQ1w7NgYVj3fIrmot2cvc515IMl2AJ4ApAoGt_kSTTtbVJma1U8GzQ/exec',
-        {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'text/plain',
-          },
-          body: JSON.stringify({
-            ...formData,
-            submittedAt: new Date().toISOString(),
-          }),
-        }
-      );
-
-      // CALL WEBHOOK
 
       await axios.post(
         'https://hook.eu2.make.com/c8gfquo9pkgacltw36vrab22msm4wgs2',
@@ -188,10 +214,8 @@ function App() {
         }
       );
 
-      setTimeout(() => {
-        setLoading(false);
-        setStep(9);
-      }, 2000);
+      setLoading(false);
+      setSubmitted(true);
 
     } catch (error) {
 
@@ -199,6 +223,7 @@ function App() {
       setLoading(false);
 
     }
+
   };
 
   return (
@@ -211,279 +236,75 @@ function App() {
 
           <div className="col-lg-7">
 
-            <div className="text-center mb-3">
+            <div style={styles.formCard}>
 
-              <span
-                className="badge px-4 py-3"
-                style={{
-                  background: '#dbeafe',
-                  color: '#1d4ed8',
-                  borderRadius: '999px',
-                  fontSize: '14px',
-                }}
-              >
-                ACA Health Coverage Assistance
-              </span>
-
-            </div>
-
-            <div
-              style={styles.formCard}
-              className="form-card-mobile-space"
-            >
-
-              {step <= 8 && (
+              {!submitted ? (
                 <>
-                  <div className="progress mb-4" style={{ height: '10px' }}>
 
-                    <div
-                      className="progress-bar"
+                  {/* TOP BADGE */}
+
+                  <div className="text-center mb-4">
+
+                    <span
                       style={{
-                        width: `${(step / 6) * 100}%`,
-                        background:
-                          'linear-gradient(to right,#2563eb,#1d4ed8)'
+                        background: '#dbeafe',
+                        color: '#2563eb',
+                        padding: '10px 22px',
+                        borderRadius: '999px',
+                        fontWeight: '700',
+                        fontSize: '14px',
+                        display: 'inline-block',
                       }}
-                    ></div>
+                    >
+                      ACA Health Coverage Assistance
+                    </span>
 
                   </div>
 
-                  <div className="text-muted fw-semibold mb-3">
-                    Step {step} of 6
-                  </div>
-                </>
-              )}
-
-              {/* STEP 1 */}
-
-              {step === 1 && (
-                <>
+                  {/* TITLE */}
 
                   <h2 style={styles.title}>
-                    Find ACA Plans In Your Area
+                    Check Your ACA Eligibility
                   </h2>
 
                   <p style={styles.subtitle}>
-                    Enter your ZIP code to check available health coverage options.
+                    Answer a few quick questions to see if you may qualify for affordable health coverage options.
                   </p>
 
-                  <input
-                    type="text"
-                    className="form-control"
-                    style={styles.input}
-                    placeholder="Enter ZIP Code"
-                    value={formData.zipCode}
-                    onChange={(e) => updateField('zipCode', e.target.value)}
-                  />
+                  {/* QUESTION 1 */}
 
-                  <button
-                    className="mt-4"
-                    style={{
-                      ...styles.mainBtn,
-                      opacity:
-                        formData.zipCode.length === 5 ||
-                          formData.zipCode.length === 6
-                          ? 1
-                          : 0.5,
+                  <h5 style={styles.questionTitle}>
+                    Are you between the age of 18 to 64?
+                  </h5>
 
-                      cursor:
-                        formData.zipCode.length === 5 ||
-                          formData.zipCode.length === 6
-                          ? 'pointer'
-                          : 'not-allowed',
-                    }}
+                  {optionCards(
+                    ['Yes', 'No'],
+                    'ageRange'
+                  )}
 
-                    disabled={
-                      !(
-                        formData.zipCode.length === 5 ||
-                        formData.zipCode.length === 6
-                      )
-                    }
+                  {/* QUESTION 2 */}
 
-                    onClick={nextStep}
-                  >
-                    Continue
-                  </button>
+                  <h5 style={styles.questionTitle}>
+                    Do you have Medicare, Medicaid or VA benefits?
+                  </h5>
 
-                </>
-              )}
+                  {optionCards(
+                    ['Yes', 'No'],
+                    'benefits'
+                  )}
 
-              {/* STEP 2 */}
+                  {/* QUESTION 3 */}
 
-              {step === 2 && (
-                <>
+                  <h5 style={styles.questionTitle}>
+                    Is your household income less than $50K?
+                  </h5>
 
-                  <h2 style={styles.title}>
-                    Who Needs Coverage?
-                  </h2>
+                  {optionCards(
+                    ['Yes', 'No'],
+                    'income'
+                  )}
 
-                  <p style={styles.subtitle}>
-                    Select the option that best describes your household.
-                  </p>
-
-                  {optionCards([
-                    'Just Me',
-                    'Me & Spouse',
-                    'Me & Family',
-                    'Just My Children',
-                  ], 'coverageType')}
-
-                  <div
-                    className="
-    d-flex
-    justify-content-between
-    mt-4
-    mobile-fixed-buttons
-  "
-                  >
-
-                    <button
-                      style={styles.backBtn}
-                      onClick={prevStep}
-                    >
-                      <FaArrowLeft /> Back
-                    </button>
-
-                    <button
-                      style={{
-                        ...styles.mainBtn,
-                        width: 'auto',
-                        opacity:
-                          formData.coverageType
-                            ? 1
-                            : 0.5,
-                      }}
-                      disabled={!formData.coverageType}
-                      onClick={nextStep}
-                    >
-                      Continue
-                    </button>
-
-                  </div>
-
-                </>
-              )}
-
-              {/* STEP 3 */}
-
-              {step === 3 && (
-                <>
-
-                  <h2 style={styles.title}>
-                    Estimated Household Income
-                  </h2>
-
-                  <p style={styles.subtitle}>
-                    This helps determine savings eligibility.
-                  </p>
-
-                  {optionCards([
-                    'Under $20K',
-                    '$20K - $35K',
-                    '$35K - $50K',
-                  ], 'income')}
-
-                  <div
-                    className="
-    d-flex
-    justify-content-between
-    mt-4
-    mobile-fixed-buttons
-  "
-                  >
-
-                    <button
-                      style={styles.backBtn}
-                      onClick={prevStep}
-                    >
-                      <FaArrowLeft /> Back
-                    </button>
-
-                    <button
-                      style={{
-                        ...styles.mainBtn,
-                        width: 'auto',
-                        opacity:
-                          formData.income
-                            ? 1
-                            : 0.5,
-                      }}
-                      disabled={!formData.income}
-                      onClick={nextStep}
-                    >
-                      Continue
-                    </button>
-
-                  </div>
-
-                </>
-              )}
-
-              {/* STEP 5 */}
-
-              {step === 4 && (
-                <>
-
-                  <h2 style={styles.title}>
-                    Employer Sponsored Insurance?
-                  </h2>
-
-                  <p style={styles.subtitle}>
-                    Including coverage offered by your employer.
-                  </p>
-
-                  {optionCards([
-                    'Yes, I Have It',
-                    "No, I Don't",
-                  ], 'employerInsurance')}
-
-                  <div
-                    className="
-    d-flex
-    justify-content-between
-    mt-4
-    mobile-fixed-buttons
-  "
-                  >
-
-                    <button
-                      style={styles.backBtn}
-                      onClick={prevStep}
-                    >
-                      <FaArrowLeft /> Back
-                    </button>
-
-                    <button
-                      style={{
-                        ...styles.mainBtn,
-                        width: 'auto',
-                        opacity:
-                          formData.employerInsurance
-                            ? 1
-                            : 0.5,
-                      }}
-                      disabled={!formData.employerInsurance}
-                      onClick={nextStep}
-                    >
-                      Continue
-                    </button>
-
-                  </div>
-
-                </>
-              )}
-
-              {/* STEP 7 */}
-
-              {step === 5 && (
-                <>
-
-                  <h2 style={styles.title}>
-                    Where Should We Send Your Savings?
-                  </h2>
-
-                  <p style={styles.subtitle}>
-                    A licensed agent will share personalized plan options.
-                  </p>
+                  {/* NAME */}
 
                   <input
                     type="text"
@@ -491,27 +312,24 @@ function App() {
                     className="form-control"
                     style={styles.input}
                     value={formData.fullName}
-                    onChange={(e) => updateField('fullName', e.target.value)}
+                    onChange={(e) =>
+                      updateField('fullName', e.target.value)
+                    }
                   />
 
-                  <input
-                    type="email"
-                    placeholder="Email Address"
-                    className="form-control mt-3"
-                    style={styles.input}
-                    value={formData.email}
-                    onChange={(e) => updateField('email', e.target.value)}
-                  />
+                  {/* PHONE */}
 
                   <div className="input-group mt-3">
 
                     <span
                       className="input-group-text"
                       style={{
-                        borderRadius: '14px 0 0 14px',
+                        borderRadius: '16px 0 0 16px',
                         background: '#f8fafc',
-                        fontWeight: '600',
-                        padding: '0 18px',
+                        fontWeight: '700',
+                        padding: '0 20px',
+                        border: '2px solid #e2e8f0',
+                        borderRight: 'none',
                       }}
                     >
                       +1
@@ -523,81 +341,30 @@ function App() {
                       className="form-control"
                       style={{
                         ...styles.input,
-                        borderRadius: '0 14px 14px 0',
+                        borderRadius: '0 16px 16px 0',
+                        marginTop: '0px',
+                        borderLeft: 'none',
                       }}
+
                       value={formData.phone}
+
                       onChange={(e) =>
                         updateField(
                           'phone',
                           e.target.value.replace(/\D/g, '')
                         )
                       }
+
                       maxLength={10}
                     />
 
                   </div>
 
-                  <div
-                    className="
-    d-flex
-    justify-content-between
-    mt-4
-    mobile-fixed-buttons
-  "
-                  >
+                  {/* CONSENT */}
 
-                    <button
-                      style={styles.backBtn}
-                      onClick={prevStep}
-                    >
-                      <FaArrowLeft /> Back
-                    </button>
+                  <div style={styles.consentBox}>
 
-                    <button
-                      style={{
-                        ...styles.mainBtn,
-                        width: 'auto',
-                        opacity:
-                          formData.fullName &&
-                            formData.email.includes('@') &&
-                            formData.phone.length >= 10
-                            ? 1
-                            : 0.5,
-                      }}
-                      disabled={
-                        !formData.fullName ||
-                        !formData.email.includes('@') ||
-                        formData.phone.length < 10
-                      }
-                      onClick={nextStep}
-                    >
-                      Continue
-                    </button>
-
-                  </div>
-
-                </>
-              )}
-
-              {/* STEP 8 */}
-
-              {step === 6 && (
-                <>
-
-                  <h2 style={styles.title}>
-                    One Quick Agreement
-                  </h2>
-
-                  <p style={styles.subtitle}>
-                    Review and confirm to continue.
-                  </p>
-
-                  <div
-                    className="p-4 rounded"
-                    style={{ background: '#f8fafc' }}
-                  >
-
-                    <div className="d-flex gap-2">
+                    <div className="d-flex gap-2 align-items-start">
 
                       <input
                         type="checkbox"
@@ -605,64 +372,88 @@ function App() {
                         onChange={(e) =>
                           updateField('consent', e.target.checked)
                         }
+                        style={{
+                          marginTop: '5px',
+                        }}
                       />
 
-                      <span>
-                        I agree to receive calls and messages regarding ACA plans.
+                      <span
+                        style={{
+                          fontWeight: '600',
+                          color: '#0f172a',
+                        }}
+                      >
+                        I agree to receive calls and text messages regarding ACA health coverage options.
                       </span>
 
                     </div>
 
-                    <p className="text-muted mt-3">
-                      By submitting, I consent to receive calls, text messages,
-                      and emails regarding ACA plans using automated technology.
+                    <p className="text-muted mt-3 mb-0">
+
+                      By clicking submit, you consent to receive calls and SMS messages
+                      from licensed insurance agents using automated technology.
+                      Message & data rates may apply.
+
                     </p>
 
                   </div>
 
-                  <div
-                    className="
-    d-flex
-    justify-content-between
-    mt-4
-    mobile-fixed-buttons
-  "
+                  {/* SUBMIT BUTTON */}
+
+                  <button
+                    style={{
+                      ...styles.mainBtn,
+                      opacity:
+                        formData.ageRange &&
+                          formData.benefits &&
+                          formData.income &&
+                          formData.fullName &&
+                          formData.phone.length >= 10 &&
+                          formData.consent
+                          ? 1
+                          : 0.5,
+                    }}
+
+                    disabled={
+                      !formData.ageRange ||
+                      !formData.benefits ||
+                      !formData.income ||
+                      !formData.fullName ||
+                      formData.phone.length < 10 ||
+                      !formData.consent
+                    }
+
+                    onClick={submitForm}
                   >
 
-                    <button
-                      style={styles.backBtn}
-                      onClick={prevStep}
-                    >
-                      <FaArrowLeft /> Back
-                    </button>
+                    {loading
+                      ? 'Submitting...'
+                      : 'Check My Eligibility'}
 
-                    <button
-                      style={{
-                        ...styles.mainBtn,
-                        width: 'auto',
-                        opacity:
-                          formData.consent
-                            ? 1
-                            : 0.5,
-                      }}
-                      disabled={!formData.consent}
-                      onClick={submitForm}
-                    >
-                      {loading
-                        ? 'Submitting...'
-                        : 'See My Plans'}
-                    </button>
+                  </button>
+
+                  {/* TRUST SECTION */}
+
+                  <div style={styles.trustBox}>
+
+                    <div>
+                      <FaShieldAlt /> Secure
+                    </div>
+
+                    <div>
+                      <FaLock /> Privacy Protected
+                    </div>
+
+                    <div>
+                      <FaPhoneAlt /> Licensed Agents
+                    </div>
 
                   </div>
 
                 </>
-              )}
+              ) : (
 
-              {/* SUCCESS */}
-
-              {step === 9 && (
-
-                <div className="text-center py-4">
+                <div style={styles.successBox}>
 
                   <FaCheckCircle
                     style={{
@@ -671,61 +462,32 @@ function App() {
                     }}
                   />
 
-                  <h2
-                    className="mt-4 fw-bold"
-                  >
-                    Great News,
-                    {' '}
-                    {formData.fullName || 'John'}!
+                  <h2 className="mt-4 fw-bold">
+                    Thank You!
                   </h2>
 
-                  <p className="text-muted mt-3">
-                    Checking plans in {formData.zipCode}...
+                  <p className="mt-4 text-success fw-bold">
+                    Your request has been received successfully.
                   </p>
 
-                  <div style={styles.successBox}>
+                  <p className="mt-3 text-muted">
 
-                    <h5 className="fw-bold">
-                      What Happens Next?
-                    </h5>
+                    A licensed agent will contact you shortly at
+                    <strong>
+                      {' '}
+                      {formData.phone}
+                    </strong>
 
-                    <p className="mt-3">
-                      A licensed agent will call you at
-                      <strong>
-                        {' '}
-                        {formData.phone}
-                      </strong>
-                    </p>
+                  </p>
 
-                    <p>
-                      Confirmation sent to
-                      <strong>
-                        {' '}
-                        {formData.email}
-                      </strong>
-                    </p>
+                  <h4 className="mt-4 fw-bold">
+                    What Happens Next?
+                  </h4>
 
-                  </div>
-
-                </div>
-
-              )}
-
-              {step <= 6 && (
-
-                <div style={styles.trustBox}>
-
-                  <div>
-                    <FaShieldAlt /> Secure & Protected
-                  </div>
-
-                  <div>
-                    <FaLock /> Privacy Secured
-                  </div>
-
-                  <div>
-                    <FaPhoneAlt /> Licensed Agents
-                  </div>
+                  <p className="mt-3 text-muted">
+                    An agent will discuss your eligibility and available ACA health coverage options with you.
+                    There is no obligation to enroll.
+                  </p>
 
                 </div>
 
@@ -741,44 +503,19 @@ function App() {
 
       <style>
         {`
+          @media (max-width:768px){
 
-    @media (max-width: 768px) {
+            .container{
+              padding-left:12px;
+              padding-right:12px;
+            }
 
-      .mobile-fixed-buttons {
+            h2{
+              font-size:30px !important;
+            }
 
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    gap: 12px;
-
-        background: #ffffff;
-
-        padding: 14px 16px;
-
-        z-index: 999;
-
-        box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
-
-        margin-top: 0 !important;
-
-        border-top: 1px solid #e2e8f0;
-      }
-
-      .mobile-fixed-buttons button {
-
-        flex: 1;
-        height: 54px;
-      }
-
-      .form-card-mobile-space {
-
-        padding-bottom: 120px !important;
-      }
-
-    }
-
-  `}
+          }
+        `}
       </style>
 
     </div>
