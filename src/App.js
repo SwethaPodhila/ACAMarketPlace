@@ -519,7 +519,6 @@ function App() {
                       {formData.phone}
                     </strong>
                   </p>
-
                 </div>
 
               )}
