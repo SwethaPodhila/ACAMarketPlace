@@ -10,6 +10,7 @@ import UserDetailsPage from './pages/UserDetailsPage';
 import ThankYouPage from './pages/ThankYouPage';
 import TermsConditions from './pages/Terms';
 import PrivacyPolicy from './pages/Policy';
+import Hero from './pages/Hero';
 
 function App() {
 
@@ -41,6 +42,11 @@ function App() {
         path="/privacy-policy"
         element={<PrivacyPolicy />}
       />
+
+      <Route
+        path="/hero"
+        element={<Hero />}
+      />  
 
     </Routes>
 

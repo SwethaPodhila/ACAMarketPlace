@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
+import Hero from "./Hero";
 
 const TermsConditions = () => {
   const navigate = useNavigate();
@@ -61,6 +62,8 @@ const TermsConditions = () => {
   };
 
   return (
+    <>
+    <Hero />
     <div style={styles.page}>
       <div style={styles.container}>
         <button style={styles.backBtn} onClick={() => navigate(-1)}>
@@ -111,6 +114,7 @@ const TermsConditions = () => {
 
       <Footer />
     </div>
+    </>
   );
 };
 

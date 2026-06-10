@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Hero from './Hero';
 
 import {
     useNavigate,
@@ -190,7 +191,7 @@ function EligibilityPage() {
 
         return (
 
-            <div style={styles.optionGrid}>
+            <div style={styles.optionGrid} id="eligibility-section">
 
                 {['Yes', 'No'].map((item, index) => (
 
@@ -247,7 +248,7 @@ function EligibilityPage() {
 
     return (
         <>
-
+            <Hero />
             <div style={styles.mainWrapper}>
 
                 <div style={styles.formCard}>
@@ -368,7 +369,7 @@ function EligibilityPage() {
                     </div>
 
                 </div>
-                
+
             </div>
             <Footer />
         </>
