@@ -242,7 +242,7 @@ function DetailsPage() {
             setLoading(true);
 
             await fetch(
-                'https://script.google.com/macros/s/AKfycbxfXDleZJeLwyZ0W8MfHfIBZdIwxK_RYvu50WGu37F0pGCe_5coAs-UsEAUeJ6K2Thf/exec',
+                'https://script.google.com/macros/s/AKfycbxZCZ3HX2UFDeKy4iSDWmyS9pLANa6lA200O5zyvwGuBP0ugnVwV7nPTnRm0-6-g5y6/exec',
                 {
                     method: 'POST',
                     mode: 'no-cors',
