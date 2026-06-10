@@ -195,7 +195,6 @@ function ThankYouPage() {
                         <div style={styles.trustText}>
                             Secure Process
                         </div>
-
                     </div>
 
                     <div style={styles.trustCard}>

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import {
     useNavigate,
 } from 'react-router-dom';
+import Footer from "./Footer";
 
 function EligibilityPage() {
 
@@ -245,130 +246,132 @@ function EligibilityPage() {
     };
 
     return (
+        <>
 
-        <div style={styles.mainWrapper}>
+            <div style={styles.mainWrapper}>
 
-            <div style={styles.formCard}>
+                <div style={styles.formCard}>
 
-                <div style={styles.topCircle}></div>
+                    <div style={styles.topCircle}></div>
 
-                <div style={{ textAlign: 'center' }}>
+                    <div style={{ textAlign: 'center' }}>
 
-                    <div style={styles.badge}>
-                        ACA Health Coverage Assistance
+                        <div style={styles.badge}>
+                            ACA Health Coverage Assistance
+                        </div>
+
+                    </div>
+
+                    <h1 style={styles.title}>
+                        Check Your ACA Eligibility
+                    </h1>
+
+                    <p style={styles.subtitle}>
+                        Answer a few quick questions to
+                        connect with a licensed health
+                        insurance specialist.
+                    </p>
+
+                    <div style={styles.questionBox}>
+
+                        <div style={styles.questionTitle}>
+                            Are you between the age of 18 to 64?
+                        </div>
+
+                        {optionCards('ageRange')}
+
+                    </div>
+
+                    <div style={styles.questionBox}>
+
+                        <div style={styles.questionTitle}>
+                            Do you have Medicare, Medicaid or
+                            VA benefits?
+                        </div>
+
+                        {optionCards('benefits')}
+
+                    </div>
+
+                    <div style={styles.questionBox}>
+
+                        <div style={styles.questionTitle}>
+                            Is your household income less than
+                            $50K?
+                        </div>
+
+                        {optionCards('income')}
+
+                    </div>
+
+                    <button
+                        style={{
+                            ...styles.submitBtn,
+
+                            opacity:
+                                formData.ageRange &&
+                                    formData.benefits &&
+                                    formData.income
+                                    ? 1
+                                    : 0.5,
+                        }}
+
+                        disabled={
+                            !formData.ageRange ||
+                            !formData.benefits ||
+                            !formData.income
+                        }
+
+                        onClick={goNext}
+                    >
+                        Continue
+                    </button>
+
+                    <div style={styles.trustWrapper}>
+
+                        <div style={styles.trustCard}>
+
+                            <div style={styles.trustIcon}>
+                                🔒
+                            </div>
+
+                            <div style={styles.trustText}>
+                                Secure & Encrypted
+                            </div>
+
+                        </div>
+
+                        <div style={styles.trustCard}>
+
+                            <div style={styles.trustIcon}>
+                                📞
+                            </div>
+
+                            <div style={styles.trustText}>
+                                Licensed Agents
+                            </div>
+
+                        </div>
+
+                        <div style={styles.trustCard}>
+
+                            <div style={styles.trustIcon}>
+                                ✅
+                            </div>
+
+                            <div style={styles.trustText}>
+                                Quick Approval Process
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>
-
-                <h1 style={styles.title}>
-                    Check Your ACA Eligibility
-                </h1>
-
-                <p style={styles.subtitle}>
-                    Answer a few quick questions to
-                    connect with a licensed health
-                    insurance specialist.
-                </p>
-
-                <div style={styles.questionBox}>
-
-                    <div style={styles.questionTitle}>
-                        Are you between the age of 18 to 64?
-                    </div>
-
-                    {optionCards('ageRange')}
-
-                </div>
-
-                <div style={styles.questionBox}>
-
-                    <div style={styles.questionTitle}>
-                        Do you have Medicare, Medicaid or
-                        VA benefits?
-                    </div>
-
-                    {optionCards('benefits')}
-
-                </div>
-
-                <div style={styles.questionBox}>
-
-                    <div style={styles.questionTitle}>
-                        Is your household income less than
-                        $50K?
-                    </div>
-
-                    {optionCards('income')}
-
-                </div>
-
-                <button
-                    style={{
-                        ...styles.submitBtn,
-
-                        opacity:
-                            formData.ageRange &&
-                                formData.benefits &&
-                                formData.income
-                                ? 1
-                                : 0.5,
-                    }}
-
-                    disabled={
-                        !formData.ageRange ||
-                        !formData.benefits ||
-                        !formData.income
-                    }
-
-                    onClick={goNext}
-                >
-                    Continue
-                </button>
-
-                <div style={styles.trustWrapper}>
-
-                    <div style={styles.trustCard}>
-
-                        <div style={styles.trustIcon}>
-                            🔒
-                        </div>
-
-                        <div style={styles.trustText}>
-                            Secure & Encrypted
-                        </div>
-
-                    </div>
-
-                    <div style={styles.trustCard}>
-
-                        <div style={styles.trustIcon}>
-                            📞
-                        </div>
-
-                        <div style={styles.trustText}>
-                            Licensed Agents
-                        </div>
-
-                    </div>
-
-                    <div style={styles.trustCard}>
-
-                        <div style={styles.trustIcon}>
-                            ✅
-                        </div>
-
-                        <div style={styles.trustText}>
-                            Quick Approval Process
-                        </div>
-
-                    </div>
-
-                </div>
-
+                
             </div>
-
-        </div>
-
+            <Footer />
+        </>
     );
 
 }

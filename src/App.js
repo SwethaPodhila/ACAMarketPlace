@@ -8,6 +8,8 @@ import {
 import EligibilityPage from './pages/EligibilityPage';
 import UserDetailsPage from './pages/UserDetailsPage';
 import ThankYouPage from './pages/ThankYouPage';
+import TermsConditions from './pages/Terms';
+import PrivacyPolicy from './pages/Policy';
 
 function App() {
 
@@ -28,6 +30,16 @@ function App() {
       <Route
         path="/thank-you"
         element={<ThankYouPage />}
+      />
+
+      <Route
+        path="/terms-conditions"
+        element={<TermsConditions />}
+      />
+
+      <Route
+        path="/privacy-policy"
+        element={<PrivacyPolicy />}
       />
 
     </Routes>
